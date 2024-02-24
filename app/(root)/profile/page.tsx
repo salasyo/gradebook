@@ -62,7 +62,7 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
       <section className="wrapper my-8">
         <Collection 
           data={organizedEvents?.data}
-          emptyTitle="No events have been created yet"
+          emptyTitle="No class sections have been created yet"
           emptyStateSubtext="Go create some now"
           collectionType="Events_Organized"
           limit={3}

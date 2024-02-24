@@ -20,13 +20,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Checkbox } from "../ui/checkbox"
 import { useRouter } from "next/navigation"
 import { createEvent, updateEvent } from "@/lib/actions/section.actions"
-import { IEvent } from "@/lib/database/models/section.model"
+import { ISection } from "@/lib/database/models/section.model"
 
 
 type EventFormProps = {
   userId: string
   type: "Create" | "Update"
-  event?: IEvent,
+  event?: ISection,
   eventId?: string
 }
 

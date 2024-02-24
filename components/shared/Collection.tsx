@@ -1,10 +1,10 @@
-import { IEvent } from '@/lib/database/models/section.model'
+import { ISection } from '@/lib/database/models/section.model'
 import React from 'react'
 import Card from './Card'
 import Pagination from './Pagination'
 
 type CollectionProps = {
-  data: IEvent[],
+  data: ISection[],
   emptyTitle: string,
   emptyStateSubtext: string,
   limit: number,
