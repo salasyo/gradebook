@@ -10,11 +10,9 @@ import * as z from 'zod'
 import { eventDefaultValues } from "@/constants"
 import Dropdown from "./Dropdown"
 import { Textarea } from "@/components/ui/textarea"
-import { FileUploader } from "./FileUploader"
 import { useState } from "react"
 import Image from "next/image"
 import DatePicker from "react-datepicker";
-import { useUploadThing } from '@/lib/uploadthing'
 
 import "react-datepicker/dist/react-datepicker.css";
 import { Checkbox } from "../ui/checkbox"
@@ -41,8 +39,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     : eventDefaultValues;
   const router = useRouter();
 
-  const { startUpload } = useUploadThing('imageUploader')
-
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
     defaultValues: initialValues
@@ -50,16 +46,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
  
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     let uploadedImageUrl = values.imageUrl;
-
-    if(files.length > 0) {
-      const uploadedImages = await startUpload(files)
-
-      if(!uploadedImages) {
-        return
-      }
-
-      uploadedImageUrl = uploadedImages[0].url
-    }
 
     if(type === 'Create') {
       try {
@@ -139,22 +125,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                 <FormItem className="w-full">
                   <FormControl className="h-72">
                     <Textarea placeholder="Description" {...field} className="textarea rounded-2xl" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          <FormField
-              control={form.control}
-              name="imageUrl"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormControl className="h-72">
-                    <FileUploader 
-                      onFieldChange={field.onChange}
-                      imageUrl={field.value}
-                      setFiles={setFiles}
-                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
