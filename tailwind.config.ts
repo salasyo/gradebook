@@ -23,7 +23,7 @@ module.exports = withUt({
           // 500: '#624CF5',
           500: '#5798DC',
           50: ' #F6F8FD',
-          DEFAULT: '#624CF5',
+          DEFAULT: '#5798DC',
           foreground: 'hsl(var(--primary-foreground))',
         },
         coral: {

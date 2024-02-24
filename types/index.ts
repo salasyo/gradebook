@@ -20,15 +20,13 @@ export type CreateUserParams = {
     userId: string
     event: {
       title: string
-      description: string
-      location: string
       imageUrl: string
+      description: string
+      room: string
       startDateTime: Date
       endDateTime: Date
       categoryId: string
-      price: string
-      isFree: boolean
-      url: string
+      isEnrolled: boolean
     }
     path: string
   }
@@ -40,13 +38,11 @@ export type CreateUserParams = {
       title: string
       imageUrl: string
       description: string
-      location: string
+      room: string
       startDateTime: Date
       endDateTime: Date
       categoryId: string
-      price: string
-      isFree: boolean
-      url: string
+      isEnrolled: boolean
     }
     path: string
   }
