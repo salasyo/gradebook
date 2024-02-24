@@ -23,7 +23,7 @@ const getCategoryByName = async (name: string) => {
 
 const populateEvent = (query: any) => {
   return query
-    .populate({ path: 'organizer', model: User, select: '_id firstName lastName' })
+    .populate({ path: 'admin', model: User, select: '_id firstName lastName' })
     .populate({ path: 'category', model: Category, select: '_id name' })
 }
 
@@ -32,10 +32,10 @@ export async function createEvent({ userId, event, path }: CreateEventParams) {
   try {
     await connectToDatabase()
 
-    const organizer = await User.findById(userId)
-    if (!organizer) throw new Error('Organizer not found')
+    const admin = await User.findById(userId)
+    if (!admin) throw new Error('Admin not found')
 
-    const newEvent = await Event.create({ ...event, category: event.categoryId, organizer: userId })
+    const newEvent = await Event.create({ ...event, category: event.categoryId, admin: userId })
     revalidatePath(path)
 
     return JSON.parse(JSON.stringify(newEvent))
@@ -65,7 +65,7 @@ export async function updateEvent({ userId, event, path }: UpdateEventParams) {
     await connectToDatabase()
 
     const eventToUpdate = await Event.findById(event._id)
-    if (!eventToUpdate || eventToUpdate.organizer.toHexString() !== userId) {
+    if (!eventToUpdate || eventToUpdate.admin.toHexString() !== userId) {
       throw new Error('Unauthorized or event not found')
     }
 
@@ -128,7 +128,7 @@ export async function getEventsByUser({ userId, limit = 6, page }: GetEventsByUs
   try {
     await connectToDatabase()
 
-    const conditions = { organizer: userId }
+    const conditions = { admin: userId }
     const skipAmount = (page - 1) * limit
 
     const eventsQuery = Event.find(conditions)

@@ -21,7 +21,6 @@ const SectionSchema = new Schema({
   description: { type: String },
   room: { type: String },
   createdAt: { type: Date, default: Date.now },
-  imageUrl: { type: String, required: true },
   startDateTime: { type: Date, default: Date.now },
   endDateTime: { type: Date, default: Date.now },
   isEnrolled: { type: Boolean, default: false },

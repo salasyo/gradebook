@@ -5,7 +5,7 @@ export const headerLinks = [
     },
     {
       label: 'Create Sections',
-      route: '/events/create',
+      route: '/sections/create',
     },
     {
       label: 'Profile',
@@ -16,12 +16,9 @@ export const headerLinks = [
   export const eventDefaultValues = {
     title: '',
     description: '',
-    location: '',
-    imageUrl: '',
+    room: '',
     startDateTime: new Date(),
     endDateTime: new Date(),
     categoryId: '',
-    price: '',
-    isFree: false,
-    url: '',
+    isEnrolled: false,
   }

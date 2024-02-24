@@ -36,7 +36,6 @@ export type CreateUserParams = {
     event: {
       _id: string
       title: string
-      imageUrl: string
       description: string
       room: string
       startDateTime: Date
@@ -78,12 +77,11 @@ export type CreateUserParams = {
     description: string
     price: string
     isFree: boolean
-    imageUrl: string
     location: string
     startDateTime: Date
     endDateTime: Date
     url: string
-    organizer: {
+    admin: {
       _id: string
       firstName: string
       lastName: string

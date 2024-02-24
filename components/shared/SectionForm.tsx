@@ -45,19 +45,18 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   })
  
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    let uploadedImageUrl = values.imageUrl;
 
     if(type === 'Create') {
       try {
         const newEvent = await createEvent({
-          event: { ...values, imageUrl: uploadedImageUrl },
+          event: { ...values  },
           userId,
           path: '/profile'
         })
 
         if(newEvent) {
           form.reset();
-          router.push(`/events/${newEvent._id}`)
+          router.push(`/sections/${newEvent._id}`)
         }
       } catch (error) {
         console.log(error);
@@ -73,13 +72,13 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       try {
         const updatedEvent = await updateEvent({
           userId,
-          event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
-          path: `/events/${eventId}`
+          event: { ...values, _id: eventId },
+          path: `/sections/${eventId}`
         })
 
         if(updatedEvent) {
           form.reset();
-          router.push(`/events/${updatedEvent._id}`)
+          router.push(`/sections/${updatedEvent._id}`)
         }
       } catch (error) {
         console.log(error);
