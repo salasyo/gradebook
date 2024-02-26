@@ -16,9 +16,9 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 
-import { deleteEvent } from '@/lib/actions/section.actions'
+import { deleteSection } from '@/lib/actions/section.actions'
 
-export const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
+export const DeleteConfirmation = ({ sectionId }: { sectionId: string }) => {
   const pathname = usePathname()
   let [isPending, startTransition] = useTransition()
 
@@ -32,7 +32,7 @@ export const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure you want to delete?</AlertDialogTitle>
           <AlertDialogDescription className="p-regular-16 text-grey-600">
-            This will permanently delete this event
+            This will permanently delete this section
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -42,7 +42,7 @@ export const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
           <AlertDialogAction
             onClick={() =>
               startTransition(async () => {
-                await deleteEvent({ eventId, path: pathname })
+                await deleteSection({ sectionId, path: pathname })
               })
             }>
             {isPending ? 'Deleting...' : 'Delete'}

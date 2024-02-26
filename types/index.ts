@@ -12,24 +12,23 @@ export type CreateUserParams = {
   }
   
   // ====== EVENT PARAMS
-  export type CreateEventParams = {
+  export type CreateSectionParams = {
     userId: string
-    event: {
+    section: {
       title: string
-      imageUrl: string
       description: string
       room: string
       startDateTime: Date
       endDateTime: Date
       categoryId: string
-      isEnrolled: boolean
+      // isEnrolled: boolean
     }
     path: string
   }
   
-  export type UpdateEventParams = {
+  export type UpdateSectionParams = {
     userId: string
-    event: {
+    section: {
       _id: string
       title: string
       description: string
@@ -37,46 +36,44 @@ export type CreateUserParams = {
       startDateTime: Date
       endDateTime: Date
       categoryId: string
-      isEnrolled: boolean
+      // isEnrolled: boolean
     }
     path: string
   }
   
-  export type DeleteEventParams = {
-    eventId: string
+  export type DeleteSectionParams = {
+    sectionId: string
     path: string
   }
   
-  export type GetAllEventsParams = {
+  export type GetAllSectionsParams = {
     query: string
     category: string
     limit: number
     page: number
   }
   
-  export type GetEventsByUserParams = {
+  export type GetSectionsByUserParams = {
     userId: string
     limit?: number
     page: number
   }
   
-  export type GetRelatedEventsByCategoryParams = {
+  export type GetRelatedSectionsByCategoryParams = {
     categoryId: string
     eventId: string
     limit?: number
     page: number | string
   }
   
-  export type Event = {
+  export type Section = {
     _id: string
     title: string
     description: string
-    price: string
-    isFree: boolean
-    location: string
+    // isEnrolled: boolean
+    room: string
     startDateTime: Date
     endDateTime: Date
-    url: string
     admin: {
       _id: string
       firstName: string

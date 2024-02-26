@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { eventFormSchema } from "@/lib/validator"
+import { sectionFormSchema } from "@/lib/validator"
 import * as z from 'zod'
-import { eventDefaultValues } from "@/constants"
+import { sectionDefaultValues } from "@/constants"
 import Dropdown from "./Dropdown"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
@@ -15,48 +15,46 @@ import Image from "next/image"
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { Checkbox } from "../ui/checkbox"
 import { useRouter } from "next/navigation"
-import { createEvent, updateEvent } from "@/lib/actions/section.actions"
+import { createSection, updateSection } from "@/lib/actions/section.actions"
 import { ISection } from "@/lib/database/models/section.model"
 
 
-type EventFormProps = {
+type SectionFormProps = {
   userId: string
   type: "Create" | "Update"
-  event?: ISection,
-  eventId?: string
+  section?: ISection,
+  sectionId?: string
 }
 
-const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
-  const [files, setFiles] = useState<File[]>([])
-  const initialValues = event && type === 'Update' 
+const SectionForm = ({ userId, type, section, sectionId }: SectionFormProps) => {
+  const initialValues = section && type === 'Update' 
     ? { 
-      ...event, 
-      startDateTime: new Date(event.startDateTime), 
-      endDateTime: new Date(event.endDateTime) 
+      ...section, 
+      startDateTime: new Date(section.startDateTime), 
+      endDateTime: new Date(section.endDateTime) 
     }
-    : eventDefaultValues;
+    : sectionDefaultValues;
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof eventFormSchema>>({
-    resolver: zodResolver(eventFormSchema),
+  const form = useForm<z.infer<typeof sectionFormSchema>>({
+    resolver: zodResolver(sectionFormSchema),
     defaultValues: initialValues
   })
  
-  async function onSubmit(values: z.infer<typeof eventFormSchema>) {
+  async function onSubmit(values: z.infer<typeof sectionFormSchema>) {
 
     if(type === 'Create') {
       try {
-        const newEvent = await createEvent({
-          event: { ...values  },
+        const newSection = await createSection({
+          section: { ...values  },
           userId,
           path: '/profile'
         })
 
-        if(newEvent) {
+        if(newSection) {
           form.reset();
-          router.push(`/sections/${newEvent._id}`)
+          router.push(`/sections/${newSection._id}`)
         }
       } catch (error) {
         console.log(error);
@@ -64,21 +62,21 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     }
 
     if(type === 'Update') {
-      if(!eventId) {
+      if(!sectionId) {
         router.back()
         return;
       }
 
       try {
-        const updatedEvent = await updateEvent({
+        const updatedSection = await updateSection({
           userId,
-          event: { ...values, _id: eventId },
-          path: `/sections/${eventId}`
+          section: { ...values, _id: sectionId },
+          path: `/sections/${sectionId}`
         })
 
-        if(updatedEvent) {
+        if(updatedSection) {
           form.reset();
-          router.push(`/sections/${updatedEvent._id}`)
+          router.push(`/sections/${updatedSection._id}`)
         }
       } catch (error) {
         console.log(error);
@@ -146,7 +144,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                         height={24}
                       />
 
-                      <Input placeholder="Event location or Online" {...field} className="input-field" />
+                      <Input placeholder="Class Room" {...field} className="input-field" />
                     </div>
 
                   </FormControl>
@@ -220,29 +218,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             />
         </div>
 
-        <div className="flex flex-col gap-5 md:flex-row">
-                      <FormField
-                        control={form.control}
-                        name="isEnrolled"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <div className="flex items-center">
-                                <label htmlFor="isFree" className="whitespace-nowrap pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Free Ticket</label>
-                                <Checkbox
-                                  onCheckedChange={field.onChange}
-                                  checked={field.value}
-                                id="isFree" className="mr-2 h-5 w-5 border-2 border-primary-500" />
-                              </div>
-          
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-            />   
-        </div>
-
-
         <Button 
           type="submit"
           size="lg"
@@ -251,10 +226,10 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
         >
           {form.formState.isSubmitting ? (
             'Submitting...'
-          ): `${type} Event `}</Button>
+          ): `${type} Section `}</Button>
       </form>
     </Form>
   )
 }
 
-export default EventForm
+export default SectionForm

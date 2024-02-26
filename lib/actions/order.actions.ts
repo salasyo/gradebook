@@ -1,6 +1,5 @@
 "use server"
 
-// import Stripe from 'stripe';
 import { CheckoutOrderParams, CreateOrderParams, GetOrdersByEventParams, GetOrdersByUserParams } from "@/types"
 import { redirect } from 'next/navigation';
 import { handleError } from '../utils';
@@ -11,7 +10,6 @@ import {ObjectId} from 'mongodb';
 import User from '../database/models/user.model';
 
 export const checkoutOrder = async (order: CheckoutOrderParams) => {
-//   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   const price = order.isFree ? 0 : Number(order.price) * 100;
 
@@ -133,7 +131,7 @@ export async function getOrdersByUser({ userId, limit = 3, page }: GetOrdersByUs
         path: 'event',
         model: Event,
         populate: {
-          path: 'admin',
+          path: 'organizer',
           model: User,
           select: '_id firstName lastName',
         },

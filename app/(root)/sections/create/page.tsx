@@ -1,7 +1,7 @@
 import SectionForm from "@/components/shared/SectionForm"
 import { auth } from "@clerk/nextjs";
 
-const CreateEvent = () => {
+const CreateSection = () => {
   const { sessionClaims } = auth();
 
   const userId = sessionClaims?.userId as string;
@@ -13,10 +13,10 @@ const CreateEvent = () => {
       </section>
 
       <div className="wrapper my-8">
-        <SectionForm userId={userId} type="Create" />
+        <SectionForm userId={userId} type="Create"/>
       </div>
     </>
   )
 }
 
-export default CreateEvent
+export default CreateSection
