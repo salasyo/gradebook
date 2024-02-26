@@ -1,30 +1,30 @@
-import EventForm from "@/components/shared/SectionForm"
-import { getEventById } from "@/lib/actions/section.actions"
+import SectionForm from "@/components/shared/SectionForm"
+import { getSectionById } from "@/lib/actions/section.actions"
 import { auth } from "@clerk/nextjs";
 
-type UpdateEventProps = {
+type UpdateSectionProps = {
   params: {
     id: string
   }
 }
 
-const UpdateEvent = async ({ params: { id } }: UpdateEventProps) => {
+const UpdateSection = async ({ params: { id } }: UpdateSectionProps) => {
   const { sessionClaims } = auth();
 
   const userId = sessionClaims?.userId as string;
-  const event = await getEventById(id)
+  const section = await getSectionById(id)
 
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
-        <h3 className="wrapper h3-bold text-center sm:text-left">Update Event</h3>
+        <h3 className="wrapper h3-bold text-center sm:text-left">Update Section</h3>
       </section>
 
       <div className="wrapper my-8">
-        <EventForm 
+        <SectionForm 
           type="Update" 
-          event={event} 
-          eventId={event._id} 
+          section={section} 
+          sectionId={section._id} 
           userId={userId} 
         />
       </div>
@@ -32,4 +32,4 @@ const UpdateEvent = async ({ params: { id } }: UpdateEventProps) => {
   )
 }
 
-export default UpdateEvent
+export default UpdateSection

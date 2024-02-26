@@ -13,12 +13,12 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
   const userId = sessionClaims?.userId as string;
 
   // const ordersPage = Number(searchParams?.ordersPage) || 1;
-  const eventsPage = Number(searchParams?.eventsPage) || 1;
+  const sectionsPage = Number(searchParams?.sectionsPage) || 1;
 
   // const orders = await getOrdersByUser({ userId, page: ordersPage})
 
   // const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
-  const organizedEvents = await getSectionsByUser({ userId, page: eventsPage })
+  const organizedSections = await getSectionsByUser({ userId, page: sectionsPage })
 
   return (
     <>
@@ -27,7 +27,7 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
         <div className="wrapper flex items-center justify-center sm:justify-between">
           <h3 className='h3-bold text-center sm:text-left'>My Tickets</h3>
           <Button asChild size="lg" className="button hidden sm:flex">
-            <Link href="/#events">
+            <Link href="/#sections">
               Explore More Sections
             </Link>
           </Button>
@@ -61,14 +61,14 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
 
       <section className="wrapper my-8">
         <Collection 
-          data={organizedEvents?.data}
+          data={organizedSections?.data}
           emptyTitle="No class sections have been created yet"
           emptyStateSubtext="Go create some now"
           collectionType="Sections_Organized"
           limit={3}
-          page={eventsPage}
+          page={sectionsPage}
           urlParamName="sectionsPage"
-          totalPages={organizedEvents?.totalPages}
+          totalPages={organizedSections?.totalPages}
         />
       </section>
     </>

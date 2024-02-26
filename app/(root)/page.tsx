@@ -25,7 +25,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
         <h3 className="wrapper h3-bold text-center sm:text-left">Find your next course on GradeBook! </h3>
       </section>
 
-      <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
+      <section id="sections" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <Search />
           <CategoryFilter />

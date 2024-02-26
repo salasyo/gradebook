@@ -7,10 +7,10 @@ import React from 'react'
 import { Button } from '../ui/button'
 import Checkout from './Checkout'
 
-const CheckoutButton = ({ event }: { event: ISection }) => {
+const CheckoutButton = ({ section }: { section: ISection }) => {
   const { user } = useUser();
   const userId = user?.publicMetadata.userId as string;
-  const hasEventFinished = new Date(event.endDateTime) < new Date();
+  const hasEventFinished = new Date(section.endDateTime) < new Date();
 
   return (
     <div className="flex items-center gap-3">
@@ -27,7 +27,7 @@ const CheckoutButton = ({ event }: { event: ISection }) => {
           </SignedOut>
 
           <SignedIn>
-            <Checkout event={event} userId={userId} />
+            <Checkout section={section} userId={userId} />
           </SignedIn>
         </>
       )}

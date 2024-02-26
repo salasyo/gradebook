@@ -7,7 +7,7 @@ import { checkoutOrder } from '@/lib/actions/order.actions';
 
 // loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
-const Checkout = ({ event, userId }: { event: ISection, userId: string }) => {
+const Checkout = ({ section, userId }: { section: ISection, userId: string }) => {
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
@@ -22,10 +22,9 @@ const Checkout = ({ event, userId }: { event: ISection, userId: string }) => {
 
   const onCheckout = async () => {
     const order = {
-      eventTitle: event.title,
-      eventId: event._id,
+      eventTitle: section.title,
+      eventId: section._id,
     //   price: event.price,
-      isEnrolled: event.isEnrolled,
       buyerId: userId
     }
 
@@ -35,7 +34,7 @@ const Checkout = ({ event, userId }: { event: ISection, userId: string }) => {
   return (
     <form action={onCheckout} method="post">
       <Button type="submit" role="link" size="lg" className="button sm:w-fit">
-        {event.isEnrolled ? 'Get Ticket' : 'Buy Ticket'}
+        {'Buy Ticket'}
       </Button>
     </form>
   )

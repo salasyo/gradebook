@@ -61,7 +61,7 @@ export type CreateUserParams = {
   
   export type GetRelatedSectionsByCategoryParams = {
     categoryId: string
-    eventId: string
+    sectionId: string
     limit?: number
     page: number | string
   }
