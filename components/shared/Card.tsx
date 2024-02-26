@@ -42,7 +42,6 @@ const Card = ({ section, hidePrice }: CardProps) => {
        {!hidePrice && <div className="flex gap-2">
           <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-60">
             {/* {event.isEnrolled ? 'Enrolled' : `$${event.price}`} */}
-            {section.isEnrolled ? 'Enrolled' : `Not Enrolled`}
           </span>
           <p className="p-semibold-14 w-min rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1">
             {section.category.name}
