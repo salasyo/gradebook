@@ -20,7 +20,7 @@ export type IOrderItem = {
   totalAmount: string
   createdAt: Date
   eventTitle: string
-  eventId: string
+  sectionId: string
   buyer: string
 }
 

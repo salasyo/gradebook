@@ -148,7 +148,7 @@ export async function getSectionsByUser({ userId, limit = 6, page }: GetSections
 // GET RELATED SECTIONS: SECTIONS WITH SAME CATEGORY
 export async function getRelatedSectionsByCategory({
   categoryId,
-  eventId,
+  sectionId,
   limit = 3,
   page = 1,
 }: GetRelatedSectionsByCategoryParams) {
@@ -156,7 +156,7 @@ export async function getRelatedSectionsByCategory({
     await connectToDatabase()
 
     const skipAmount = (Number(page) - 1) * limit
-    const conditions = { $and: [{ category: categoryId }, { _id: { $ne: eventId } }] }
+    const conditions = { $and: [{ category: categoryId }, { _id: { $ne: sectionId } }] }
 
     const sectionsQuery = Section.find(conditions)
       .sort({ createdAt: 'desc' })
